@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Question
+from .models import Question, Choice
 from django.template import loader
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
 
+""" OLD METHODS 
 #def index(request):
 #    return HttpResponse("Hello, World. You're at the polls index.")
 
@@ -29,19 +30,45 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
-""" way of doing 404
+ #way of doing 404
 def detail(request, question_id):
     try:
         question = Question.objects.get(pk=question_id)
     except Question.DoesNotExist:
         raise Http404("Question does not exist")
     return render(request, 'polls/detail.html', {'question' : question})
-"""
+
 
 #recommended way to do 404
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html',{'question': question})
+
+
+def results(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/results.html', {'question': question})
+"""
+
+#GENERIC METHODS
+from django.views import generic
+from django.utils import timezone
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        #returns 5 last published questions 
+        return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
 
 def vote(request,question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -56,3 +83,4 @@ def vote(request,question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
