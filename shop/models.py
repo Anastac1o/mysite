@@ -1,3 +1,15 @@
 from django.db import models
 
-# Create your models here.
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    author = models.CharField(max_length=200)
+    is_rare = models.BooleanField(default=False)
+    is_first_edition = models.BooleanField(default=False)
+    is_used = models.BooleanField(default=False)
+    is_new = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name + " : " + self.author
+
+
+    
