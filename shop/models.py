@@ -7,6 +7,7 @@ class Item(models.Model):
     is_first_edition = models.BooleanField(default=False)
     is_used = models.BooleanField(default=False)
     is_new = models.BooleanField(default=False)
+    image = models.ImageField()
 
     def __str__(self):
         return self.name + " : " + self.author
