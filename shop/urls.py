@@ -6,5 +6,5 @@ app_name = 'shop'
 
 urlpatterns = [
     path('', views.index, name = 'index'),
-    path('bootstrap', TemplateView.as_view(template_name='bootstrap/example.html')),
+    path('bootstrap', TemplateView.as_view(template_name='bootstrap/index.html')),
 ]

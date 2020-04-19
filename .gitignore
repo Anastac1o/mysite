@@ -124,3 +124,9 @@ dmypy.json
 #Bootstrap files
 bootstrap*
 
+#images
+*.jpg
+*.png
+*.gif
+
+migrations

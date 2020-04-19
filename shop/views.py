@@ -7,8 +7,9 @@ from django.views.generic import CreateView
 
 
 def index(request):
-    return render(request, 'shop/index.html')
+    img = Item.objects.all().order_by('id')
+    return render(request, 'shop/index.html', {"img":img})
 
 class CreateViewItem(CreateView):
     model = Item
-    fields = ('name', 'author', 'is_rare', 'is_first_edition', 'is_used', 'is_new')
+    fields = ('name', 'author', 'is_rare', 'is_first_edition', 'is_used')
