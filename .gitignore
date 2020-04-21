@@ -128,5 +128,6 @@ bootstrap*
 *.jpg
 *.png
 *.gif
-
+*.jpeg
+*.svg
 migrations
