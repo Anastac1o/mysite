@@ -130,4 +130,8 @@ bootstrap*
 *.gif
 *.jpeg
 *.svg
+*.ico
 migrations
+
+#pycharm
+.idea
